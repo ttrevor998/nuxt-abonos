@@ -1,41 +1,67 @@
 <template>
-    <Splide :options="{ rewind: true }" aria-label="My Favorite Images">
-        <SplideSlide>
-            <div class="d-flex g-2">
-                <img src="public/images/1.jpg" alt="Sample 1">
-                <img src="public/images/2.jpg" alt="Sample 2">
-            </div>
-        </SplideSlide>
-        <SplideSlide>
-            <img src="public/images/2.jpg" alt="Sample 2">
-        </SplideSlide>
-    </Splide>
+
+    <section id="main-carousel" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <li class="splide__slide" v-for="imgSrc in imgArray" :key="imgSrc">
+                    <div class="container">
+                        <img :src="imgSrc" style="max-width: 40vw; height: 100%; border-radius: 10px !important;">
+                    </div>
+                    
+                </li>
+                <!--
+                <li class="splide__slide"><img src="public/images/2.jpg" alt=""></li>
+                <li class="splide__slide"><img src="public/images/3.jpg" alt=""></li>
+                <li class="splide__slide"><img src="public/images/4.jpg" alt=""></li>
+                -->
+            </ul>
+        </div>
+    </section>
+
 </template>
 
-<script>
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
+<script setup>
 
-import '@splidejs/vue-splide/css';
+import { onMounted } from 'vue';
 
-//import '@splidejs/vue-splide/css/skyblue';
+import Splide from '@splidejs/splide';
 
-export default defineComponent({
-    components: {
-        Splide,
-        SplideSlide,
-    },
-});
+const{imgArray}=defineProps(['imgArray'])
+
+useHead({
+    link: {
+        rel: 'stylesheet',
+        href: 'splide.min.css'
+        //href:'~/assets/main.css'
+    }
+})
+
+onMounted(() => {
+    const script = document.createElement("script");
+    script.src = "splide.min.js";
+    document.body.appendChild(script);
+    /*new Splide('.splide').mount();*/
+
+    var main = new Splide('#main-carousel', {
+        type: 'loop',
+        perPage: 4,
+        perMove: 1,
+        breakpoints: {
+            640: {
+                perPage: 1,
+            },
+        }
+    });
+
+    main.mount();
+})
+
 </script>
 
-<style scoped>
-
-img{
-    max-height: 60vh !important;
-}
-/*
+<style>
 .splide__slide img {
     width: 100%;
-    height: 100%;
+    max-height: 60vh !important;
     object-fit: cover;
-}*/
+}
 </style>

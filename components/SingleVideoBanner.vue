@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid" style="height: auto;">
+    <div class="container-fluid" style="height: 600px !important">
         <header class="hero text-white text-center d-flex align-items-center justify-content-center" >
             
-            <video class="position-absolute w-100 h-100" style="object-fit: cover;" autoplay muted loop>
+            <video class="position-absolute w-100 h-100" style="object-fit: cover; height: 900px !important" autoplay muted loop>
                 <source src="/public/videos/2.mp4" type="video/mp4">
             </video>
             <div class="hero-content position-relative" id="banner-title">
@@ -19,20 +19,6 @@
 </template>
 
 <script setup>
-
-//import { onMounted, onUpdated } from 'vue';
-
-//const { vidSrc } = defineProps(['vidSrc'])
-
-/*
-onMounted(()=>{
-    //window.location.reload()
-})
-
-onUpdated(()=>{
-    //window.location.reload()
-})
-*/
 </script>
 
 <style scoped>

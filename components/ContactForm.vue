@@ -1,7 +1,7 @@
 <template>
     <section class="container-fluid border border-3" id="contact-form">
 
-        <h2 class="text-center p-5" id="contacto" >Contáctanos</h2>
+        <h2 class="text-center p-5" id="contacto">Contáctanos</h2>
 
         <div class="container-fluid">
             <form class="pt-0" action="/submit-contact-form" method="POST">
@@ -54,7 +54,7 @@
                             autocomplete="on" required></textarea>
                     </div>
                 </div>
-                <div class="row">
+                <div id="submit-wrapper" class="row d-flex justify-content-center">
                     <button type="submit" class="btn-xl btn-filled-dark" value="Submit"
                         onclick="mensajeEnviado()">Enviar</button>
                 </div>
@@ -75,12 +75,11 @@ export default {
 </script>
 
 <style scoped>
-
-#contact-form{
+#contact-form {
     border-radius: 20px;
 }
 
-form{
+form {
     /*background: rgba(140, 202, 47, 0.89);*/
     background: transparent;
     padding: 4vw;
@@ -89,60 +88,84 @@ form{
 
 /* Style inputs, select elements and textareas */
 input,
-    select,
-    textarea {
-        width: 100% !important;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        resize: vertical;
-    }
+select,
+textarea {
+    width: 100% !important;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
 
-    /* Style the label to display next to the inputs */
-    label {
-        padding: 12px 12px 12px 0;
-        display: inline-block;
-    }
+/* Style the label to display next to the inputs */
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
 
-    /* Style the submit button */
+/* Style the submit button */
+button[type=submit] {
+    background: rgb(140, 202, 47) !important;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    width: fit-content;
+}
+
+/* Style the container */
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+    font-style: bold;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media only screen and (max-width: 600px) {
+
+    #contact-form{
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0 !important;
+    }
     button[type=submit] {
-        background: rgb(140, 202, 47) !important;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        float: right;
-        width: fit-content;
+        margin-top: 5vh;
+    }
+    .col-25{
+        margin-right: 10px;
+    }
+    input{
+        /*width: 50vw !important;*/
+    }
+    h2{
+        padding: 5vh !important;
     }
 
-    /* Style the container */
-    .container {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
 
-    /* Floating column for labels: 25% width */
-    .col-25 {
-        float: left;
-        width: 20%;
-        margin-top: 6px;
-        font-style: bold;
-    }
-
-    /* Floating column for inputs: 75% width */
-    .col-75 {
-        float: left;
-        width: 75%;
-        margin-top: 6px;
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+}
 </style>

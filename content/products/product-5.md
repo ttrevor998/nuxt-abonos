@@ -4,6 +4,9 @@ description: 'Abono Orgánico Sólido de alta calidad, con alto contenido de nit
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']
 published: '2020-09-05'
+category: 'Humus Liquido'
+price: 65000
+discount: 10
 ---
 
 ## Getting started

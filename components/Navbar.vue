@@ -10,12 +10,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item">
+                        <NuxtLink to="/contacto" class="nav-link  text-decoration-none">Contacto</NuxtLink>
+                    </li>
+                    <li class="nav-item">
+                        <NuxtLink class="nav-link  text-decoration-none fs-bold" to="/sobre-nosotros">Sobre Nosotros</NuxtLink>
+                    </li>
                     <li class="nav-item">
                         <NuxtLink class="nav-link  text-decoration-none" to="/blog">Blog</NuxtLink>
                     </li>
                     <li class="nav-item">
-                        <NuxtLink to="/store" class="nav-link  text-decoration-none">Tienda</NuxtLink>
+                        <NuxtLink to="/tienda" class="nav-link  text-decoration-none">Tienda</NuxtLink>
                     </li>
                 </ul>
             </div>
@@ -29,6 +35,11 @@
 </script>
 
 <style>
+
+a:hover{
+    color: white !important;
+}
+
 .router-link-active {
     color: greenyellow
 }

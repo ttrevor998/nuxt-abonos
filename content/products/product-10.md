@@ -4,6 +4,7 @@ description: 'Humus orgánico'
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']
 published: '2020-08-01'
+category: 'Leonardita'
 ---
 
 ## Getting started

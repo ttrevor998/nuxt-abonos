@@ -11,6 +11,8 @@
 <script>
 
 
+
+
 </script>
 
 <style>
@@ -25,6 +27,8 @@ a {
 }
 
 
+
+
 h2 {
     font-family: "Fira Sans", sans-serif;
     font-weight: 700;
@@ -37,6 +41,6 @@ h2 {
 }
 
 .slot-wrapper {
-    margin-top: 100px !important;
+    /*margin-top: 100px !important;*/
 }
 </style>

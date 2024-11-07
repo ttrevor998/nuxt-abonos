@@ -2,7 +2,7 @@
 
     <div class="card border-0 my-2">
         <figure class="card-img-top m-0 overflow-hidden bsb-overlay-hover">
-            <NuxtLink :to="'/store' + prodPath">
+            <NuxtLink :to="'/tienda' + prodPath">
                 <img class="img-fluid bsb-scale bsb-hover-scale-up" loading="lazy" :src="imgSrc" alt="Business">
             </NuxtLink>
             <figcaption>
@@ -16,16 +16,21 @@
             </figcaption>
         </figure>
         <div class="card-body border bg-white p-4">
-
+            <div class="d-flex gap-2 position-absolute" v-if='productDiscount' style="top: 10px; left: 10px;">
+                <p class="discount px-3 py-1 rounded">{{ productDiscount }}% descuento</p>
+            </div>
+            <!--
             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
-                Fruits</div>
+                Fruits</div>-->
             <div class="p-xl-4 p-sm-1">
                 <h4>{{ productTitle }}</h4>
-                <p>{{ productDescription }}</p>
+                <p>{{ productDescription.length<150 ? productDescription: productDescription.slice(0,150)+ '...'}}</p>
+                <p style="width: fit-content;" class="fs-bolder bg-light px-3 py-1 rounded">{{ productCategory }}</p>
                 <div class="d-flex justify-content-between flex-lg-wrap">
-                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
+                    <p class="text-dark fs-5 fw-bold mb-0">$ {{ productPrice }} COP</p>
                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
                         <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                    
                 </div>
             </div>
         </div>
@@ -35,11 +40,17 @@
 
 <script setup>
 
-const { imgSrc, productTitle, productDescription, prodPath } = defineProps(['imgSrc', 'productTitle', 'productDescription', 'prodPath'])
+const { imgSrc, productTitle, productDescription, prodPath, productCategory,productPrice,productDiscount } = 
+defineProps(['imgSrc', 'productTitle', 'productDescription', 'prodPath', 'productCategory','productPrice', 'productDiscount'])
 //const { } = defineProps(['articleDescription'])
 
 console.log('testing')
 
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.discount{
+    background: greenyellow !important;
+}
+</style>

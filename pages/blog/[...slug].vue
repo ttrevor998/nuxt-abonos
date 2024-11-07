@@ -1,21 +1,22 @@
 <template>
-    <div>
+    <div id="main-article-container">
         <ContentRenderer v-if="data" :value="data">
             <div class="container">
 
                 <div class="row d-xl-flex d-sm-block">
                     <div class="col-xl-4 col-sm-12">
-                        <div class="container w-100" id="link-container">
-                            <ul class="border border-1">
-                                <li :key="link.id" v-for="link in data.body.toc.links">
-                                    <a class="text-decoration-none" :href="`#${link.id}`"> {{ link.id }} </a>
+                        <div class="container w-100 justify-content-center d-flex" id="link-container">
+                            <ul id="toc-ul" class="border border-1">
+                                <li class="toc-li" :key="link.id" v-for="link in data.body.toc.links">
+                                    <a class="toc-link text-decoration-none" :href="`#${link.id}`"> {{ link.id }} </a>
                                 </li>
                             </ul>
                             <!--{{ data.body.toc.links }} -->
                         </div>
 
                     </div>
-                    <ContentRendererMarkdown  style="color:brown" :value="data" class="col-xl-8 col-sm-12 text-start text-decoration-none" />
+                    <ContentRendererMarkdown style="color:brown" :value="data"
+                        class="col-xl-8 col-sm-12 text-start text-decoration-none" />
                 </div>
 
             </div>
@@ -37,23 +38,47 @@ console.log(useRoute().params.slug[0])
 const slug = (useRoute().params.slug[0]).toString()
 
 const { data } = await useAsyncData('page-data', () => queryContent('articles/' + slug).findOne())
+
+useSeoMeta({
+    title: 'Abonera | ' + data.value.title,
+    ogTitle: 'Abonera Blog |'+ data.value.title,
+    description: data.value.description,
+    ogDescription: data.value.description,
+    ogImage: data.value.image,
+    twitterCard: 'summary_large_image',
+})
+
+
 </script>
 
-<style scoped >
-
+<style scoped>
 #link-container {
-    position: sticky  !important;
+    position: sticky !important;
     top: 70px !important;
 }
 
-body{
-    color:red;
-}
-
-a{
+a {
     color: green;
     text-decoration: none;
 
 }
 
+#toc-ul{
+    width: fit-content;
+    padding: 10px 50px 10px 50px;
+    border-radius: 10px;
+    /*list-style: none;*/
+}
+
+.toc-li{
+    width:fit-content;
+}
+
+a:hover{
+    color: greenyellow !important;
+}
+
+#main-article-container {
+    margin-top: 100px !important;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex justify-center">
+        <div class="flex justify-center mt-5">
 
             <div class="container">
                 <div class="row justify-content-md-center">
@@ -26,27 +26,28 @@
 
 
                 </div>
+
+                <div class="d-flex">
+                    <div class="p-2" v-if="currentPage && parseInt(currentPage) !== 0">
+                        <NuxtLink class="btn btn-light border mt-5" :to="'/blog/?page=' + previousPage" @click="handlePreviousPage">
+                            Anterior
+                        </NuxtLink>
+                    </div>
+
+                    <div class="p-2" v-if="articlesFetched">
+                        <NuxtLink class="btn btn-light border mt-5" :to="'/blog/?page=' + nextPage" @click="handleNextPage">
+                            Siguiente
+                        </NuxtLink>
+                    </div>
+                </div>
             </div>
 
 
-            <div class="d-flex">
-                <div class="p-2" v-if="currentPage !== 0">
-                    <NuxtLink :to="'/blog/?page=' + previousPage" @click="handlePreviousPage">
-                        Previous
-                    </NuxtLink>
-                </div>
 
-                <div class="p-2">
-                    <NuxtLink :to="'/blog/?page=' + nextPage" @click="handleNextPage">
-                        Next
-                    </NuxtLink>
-                </div>
-                <button @click="handleClick">skip</button>
-            </div>
         </div>
-        <!--<ArticleList :articles="paginatedArticles" :total="allArticles.length" />-->
+
     </div>
-    <!-- <ContentRenderer :value="data" />-->
+
 </template>
 
 <script setup>
@@ -61,53 +62,36 @@ useHead({
 })
 
 const articles = useState('articles')
+const articlesFetched = useState('articlesFetched', () => false)
 const limit = useState('limit', () => 3)
 const currentPage = ref(useRoute().query.page ? parseInt(useRoute().query.page) : 0)
 const nextPage = computed(() => { return (parseInt(currentPage.value ?? 0) + 1) })
 const previousPage = computed(() => { return (parseInt(currentPage.value) - 1) })
-//const vidSrc=useState('vidSrc', ()=>{return  'videos/2.mp4' } )
-const vidSrc = ref('videos/2.mp4')
+
 async function handleNextPage() {
-    articles.value = await queryContent('articles').skip(parseInt(nextPage.value)*limit.value).limit(limit.value).find()
+    articles.value = await queryContent('articles').skip(parseInt(nextPage.value) * limit.value).limit(limit.value).find()
     //console.log(articles, "next-page: "+ nextPage.value)
 
 }
 
 async function handlePreviousPage() {
-    articles.value = await queryContent('articles').skip(parseInt(previousPage.value)*limit.value).limit(limit.value).find()
+    articles.value = await queryContent('articles').skip(parseInt(previousPage.value) * limit.value).limit(limit.value).find()
     //console.log(articles, "previous-page: "+ previousPage.value)
 }
 
-onUpdated(() => {
-    //console.log(currentPage.value)
-    //videosrc='videos/2.mp4'
+onUpdated(async () => {
     currentPage.value = useRoute().query.page
+    articlesFetched.value = articles.value.length === limit.value
+    //articles.value = await queryContent('articles').limit(limit.value).find()
     window.scrollTo(0, 0)
-    //vidSrc.value='videos/2.mp4'
+    
 })
 
 onMounted(async () => {
     articles.value = await queryContent('articles').limit(limit.value).find()
-    console.log("currentpage-", currentPage.value)
-    console.log('mounteddd')
     window.scrollTo(0, 0)
-    //vidSrc.value='videos/2.mp4'
+
 })
-
-/*
-onUpdated(async()=>{
-    articles.value=await queryContent('articles').skip(parseInt(skip.value)).find()
-} )
-*/
-/*
-async function handleClick(){
-    skip.value=skip.value+1
-    console.log(skip.value)
-    articles.value=await queryContent('articles').skip(parseInt(skip.value)).find()
-}
-*/
-
-//await callOnce(async () => {articles.value= await queryContent('articles').skip(parseInt(skip.value)).find()})
 
 
 </script>
@@ -120,9 +104,8 @@ a {
 @media only screen and (max-width: 600px) {
 
     #main-container {
-        padding: 1vw;}
-
+        padding: 1vw;
     }
 
-
+}
 </style>

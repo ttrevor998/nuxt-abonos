@@ -95,8 +95,24 @@ export default {
 
 }
 
+.card-title{
+    background: greenyellow ;
+    width: fit-content;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+h3{
+    /*color: rgb(167, 255, 34) !important;*/
+}
+
 h3,a {
     font-family: "Fira Sans", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+p{
+    /*color: white !important;*/
     font-weight: 600;
     font-style: normal;
 }
@@ -112,6 +128,11 @@ h3,a {
     /*background: greenyellow;*/
     background: rgb(140, 202, 47) !important;
 }
+
+.card-body{
+   /* background:rgb(87, 133, 20) !important; */
+}
+
 
 .btn {
     padding: 1vh 2vh 1vh 2vh !important;
