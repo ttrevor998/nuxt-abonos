@@ -49,7 +49,7 @@
 
 import { onMounted } from 'vue';
 
-console.log("slug", useRoute().params.slug[0])
+//console.log("slug", useRoute().params.slug[0])
 const slug = (useRoute().params.slug[0]).toString()
 
 const { data } = await useAsyncData('page-data', () => queryContent('products/' + slug).findOne())
@@ -57,13 +57,8 @@ const { data } = await useAsyncData('page-data', () => queryContent('products/' 
 //console.log('TITTTLLEE', data.value.title)
 
 useHead({
-    link: [{
-        rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
-        integrity: 'sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==',
-        crossorigin: 'anonymous',
-        referrerpolicy: "no-referrer"
-    }, {
+    link: [
+        {
         rel: 'stylesheet',
         href: '/splide.min.css'
         //href:'~/assets/main.css'
@@ -84,9 +79,9 @@ useSeoMeta({
 
 onMounted(async() => {
 
-    const example  = await $fetch('/api/example')
+    //const example  = await $fetch('/api/example')
     //const example='fgg'
-    console.log('example', example)
+    //console.log('example', example)
 
     /*
     const script = document.createElement("script");

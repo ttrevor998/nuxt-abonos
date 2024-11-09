@@ -130,4 +130,18 @@ h3 {
     display: block;
     /* Show description on hover */
 }
+
+@media only screen and (max-width: 600px) {
+
+    .card-title-overlay {
+        opacity: 1 !important;
+        /* Show overlay on hover */
+    }
+
+    .description {
+        display: block !important;
+        /* Show description on hover */
+    }
+
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <section>
-        <section id="main-carousel" class="splide">
+        <section id="main-carousel_" class="splide">
             <div class="splide__track">
                 <ul class="splide__list">
                     <li class="splide__slide"><img src="public/images/1.jpg" alt=""></li>
@@ -10,7 +10,7 @@
                 </ul>
             </div>
         </section>
-        <section id="thumbnail-carousel" class="splide"
+        <section id="thumbnail-carousel_" class="splide"
             aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
             <div class="splide__track">
                 <ul class="splide__list">
@@ -40,6 +40,7 @@ import Splide from '@splidejs/splide';
 //import ('~/assets/main.css')
 //import ('~/assets/splide/dist/css/splide.min.css')
 
+/*
 useHead({
     link: {
         rel: 'stylesheet',
@@ -47,21 +48,25 @@ useHead({
         //href:'~/assets/main.css'
     }
 })
+    */
 
 onMounted(() => {
+    /*
     const script = document.createElement("script");
     script.src = "splide.min.js";
-    document.body.appendChild(script);
+    document.body.appendChild(script);*/
+
+
     /*new Splide('.splide').mount();*/
 
-    var main = new Splide('#main-carousel', {
+    var main = new Splide('#main-carousel_', {
         type: 'fade',
         rewind: true,
         pagination: false,
         arrows: false,
     });
 
-    var thumbnails = new Splide('#thumbnail-carousel', {
+    var thumbnails = new Splide('#thumbnail-carousel_', {
         fixedWidth: 100,
         fixedHeight: 60,
         gap: 10,

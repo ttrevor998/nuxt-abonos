@@ -19,7 +19,7 @@
             <TeamMembers2 />
         </section>
 
-        <section class="container-fluid justify-content-center align-items-center p-xl-5 p-0 mb-5" >
+        <section class="container-fluid justify-content-center align-items-center p-xl-5 p-0 mb-5">
 
             <div id="locate" class="container-fluid justify-content-center align-content-center p-xl-5 p-0 shadow-lg"
                 style="width:auto;">
@@ -37,13 +37,42 @@
 </template>
 
 <script setup>
+
+import { onMounted } from 'vue';
+import Splide from '@splidejs/splide';
+
+
+onMounted(() => {
+
+    console.log('was mounted')
+    /*
+    const script = document.createElement("script");
+    script.src = "splide.min.js";
+    document.body.appendChild(script);
+    */
+
+    /*new Splide('.splide').mount();*/
+
+    var main = new Splide('#main-carousel', {
+        type: 'loop',
+        perPage: 4,
+        perMove: 1,
+        breakpoints: {
+            640: {
+                perPage: 1,
+            },
+        }
+    });
+
+    main.mount();
+
+})
+
 useHead({
-    link: [{
+    link: [ {
         rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
-        integrity: 'sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==',
-        crossorigin: 'anonymous',
-        referrerpolicy: "no-referrer"
+        href: '/splide.min.css'
+        //href:'~/assets/main.css'
     }]
 })
 
@@ -85,7 +114,7 @@ p {
     height: 700px;
 }
 
-#locate{
+#locate {
     border-radius: 20px;
 }
 
@@ -99,7 +128,7 @@ p {
         height: 550px;
     }
 
-    #locate{
+    #locate {
         border-radius: 0px !important;
     }
 
