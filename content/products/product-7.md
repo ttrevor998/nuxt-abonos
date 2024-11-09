@@ -1,9 +1,11 @@
 ---
 title: Product 7
+productSlug: product-7
 description: 'Humus orgánico'
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']
 published: '2020-08-01'
+price: 15000
 category: 'Humus Liquido'
 ---
 

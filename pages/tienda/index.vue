@@ -32,7 +32,7 @@
                             <div v-for="product in products" :key="product.title" class="col-sm-12 col-lg-4">
                                 <ProductCard :imgSrc="product.image" :productTitle="product.title"
                                     :productDescription="product.description"
-                                    :prodPath="'/' + product._stem.split('/')[1]"
+                                    :prodPath="'/' + product.productSlug"
                                     :productCategory="product.category"
                                     :productPrice="product.price"
                                     :productDiscount="product.discount" />

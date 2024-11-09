@@ -1,5 +1,6 @@
 ---
 title: Kitchen Sink
+productSlug: product-6
 description: "This is the kitchen sink, all the common markdown elements laid out for you to add styling, really helpful to make sure you don't miss any styles."
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']

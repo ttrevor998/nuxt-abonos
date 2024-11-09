@@ -1,11 +1,13 @@
 ---
-title: Prtoduct Five
-description: 'Abono Orgánico Sólido de alta calidad, con alto contenido de nitrogeno y potasio @nuxt/content module: write in a content/ directory '
+title:  Product Five
+productSlug: product-5
+description: ' Abono Orgánico Sólido'
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']
-published: '2020-09-05'
+published: '2020-09-04'
+featured: true
 category: 'Humus Liquido'
-price: 65000
+price: 35000
 discount: 10
 ---
 

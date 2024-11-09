@@ -1,0 +1,89 @@
+<template>
+    <form @submit.prevent="submitComment" class="container my-4">
+      <div class="row mb-3">
+        <div class="col-12">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            v-model="title"
+            id="title"
+            class="form-control"
+            placeholder="Enter the title"
+            required
+          />
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-12">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea
+            v-model="comment"
+            id="comment"
+            class="form-control"
+            placeholder="Enter your comment"
+            required
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary w-100">Submit Comment</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center mt-2">
+          <p v-if="message" class="mt-2">{{ message }}</p>
+        </div>
+      </div>
+    </form>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue'
+  import { defineProps } from 'vue'
+  
+  // Receive the slug prop from the parent component
+  const props = defineProps({
+    prodSlug: {
+      type: String,
+      required: true
+    }
+  })
+  
+  const title = ref('')
+  const comment = ref('')
+  const message = ref('')
+  
+  async function submitComment() {
+    try {
+      const response = await fetch('/api/addComment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title.value,
+          comment: comment.value,
+          slug: props.prodSlug
+        })
+      });
+  
+      const result = await response.json();
+      message.value = result.message;
+  
+      if (response.ok) {
+        title.value = '';
+        comment.value = '';
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+      message.value = 'There was an error submitting your comment.';
+    }
+  }
+  </script>
+  
+  <style scoped>
+  /* Optional styling */
+  </style>
+  

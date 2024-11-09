@@ -1,5 +1,6 @@
 ---
 title: Product One
+productSlug: product-1
 description: 'Abono Orgánico Sólido de alta calidad, con alto contenido de nitrogeno y potasio Abono Orgánico Sólido de alta calidad, con alto contenido de nitrogeno y potasio Abono Orgánico Sólido de alta calidad, con alto contenido de nitrogeno y potasio'
 image: 'https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png'
 tags: ['VueJS', 'Nuxt']

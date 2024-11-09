@@ -1,5 +1,5 @@
 <template>
-    <div id="main-product-container" >
+    <div id="main-product-container">
         <ContentRenderer v-if="data" :value="data">
 
             <div class="container mt-5">
@@ -24,7 +24,13 @@
                             <i class="far fa-star"></i>
                             <span>(4.0)</span>
                         </div>
-                        <button class="btn btn-primary buy-button">Buy Now</button>
+                        <div>
+                            <PaymentButton :title="data.title" :productSlug="data.productSlug" :description="data.description" :price="data.price" />
+                        </div>
+                        <div class="container">
+                            <Comment :prodSlug="slug" />
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -41,12 +47,14 @@
 
 <script setup>
 
-//console.log("slug", useRoute().params.slug[0])
+import { onMounted } from 'vue';
+
+console.log("slug", useRoute().params.slug[0])
 const slug = (useRoute().params.slug[0]).toString()
 
 const { data } = await useAsyncData('page-data', () => queryContent('products/' + slug).findOne())
 
-console.log('TITTTLLEE', data.value.title)
+//console.log('TITTTLLEE', data.value.title)
 
 useHead({
     link: [{
@@ -55,21 +63,38 @@ useHead({
         integrity: 'sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==',
         crossorigin: 'anonymous',
         referrerpolicy: "no-referrer"
-    } , {
+    }, {
         rel: 'stylesheet',
         href: '/splide.min.css'
         //href:'~/assets/main.css'
+    }],
+    script:[{
+        src:'https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js'
     }]
 })
 
 useSeoMeta({
-    title: 'Abonera | ' + data.value.title,
-    ogTitle: 'My Amazing Site',
-    description: 'This is my amazing site, let me tell you all about it.',
-    ogDescription: 'This is my amazing site, let me tell you all about it.',
-    ogImage: 'https://example.com/image.png',
+    title: 'Abonera | ' + data.value.title ?? 'new_title',
+    ogTitle: 'Abonera',
+    description: data.value.description,
+    ogDescription: data.value.description,
+    ogImage: '/public/images/products/1.png',
     twitterCard: 'summary_large_image',
 })
+
+onMounted(async() => {
+
+    const example  = await $fetch('/api/example')
+    //const example='fgg'
+    console.log('example', example)
+
+    /*
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js";
+    document.body.appendChild(script);
+    */
+})
+
 
 
 
@@ -77,7 +102,6 @@ useSeoMeta({
 </script>
 
 <style scoped>
-
 .splide__slide img {
     width: 100%;
     max-height: 60vh !important;
