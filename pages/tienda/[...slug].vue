@@ -28,10 +28,15 @@
                             <PaymentButton :title="data.title" :productSlug="data.productSlug" :description="data.description" :price="data.price" />
                         </div>
                         <div class="container">
-                            <Comment :prodSlug="slug" />
+                            <!--<Comment :productSlug="data.productSlug" />-->
+                            <CommentCaptcha />
                         </div>
                         
                     </div>
+                </div>
+                <div class="row">
+                   <Comments :pSlug="slug" />
+                    <!--<CommentCaptcha />-->
                 </div>
             </div>
         </ContentRenderer>
@@ -79,15 +84,21 @@ useSeoMeta({
 
 onMounted(async() => {
 
-    //const example  = await $fetch('/api/example')
-    //const example='fgg'
-    //console.log('example', example)
+    //const example  = await $fetch(`https://comments.temacs92.workers.dev/api/getComments?product=${slug}`)
 
     /*
-    const script = document.createElement("script");
-    script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js";
-    document.body.appendChild(script);
+    const response = await fetch(`https://comments.temacs92.workers.dev/api/getComments?product=${slug}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+    ).then(res=>res.json())
     */
+   
+    /*.then(res=>console.log(res))*/
+
+
 })
 
 

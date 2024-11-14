@@ -3,7 +3,18 @@ export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ['@nuxt/image', '@nuxt/content'],
+  modules: ['@nuxt/image', '@nuxt/content', '@nuxtjs/turnstile'],
+  turnstile: {
+    siteKey: process.env.NUXT_TURNSTILE_SITE_KEY,
+  },
+
+  runtimeConfig: {
+    turnstile: {
+      // This can be overridden at runtime via the NUXT_TURNSTILE_SECRET_KEY
+      // environment variable.
+      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
+    },
+  },
   app: {
     head: {
       link: [

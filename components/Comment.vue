@@ -2,11 +2,11 @@
     <form @submit.prevent="submitComment" class="container my-4">
       <div class="row mb-3">
         <div class="col-12">
-          <label for="title" class="form-label">Title</label>
+          <label for="customerName" class="form-label">Nombre</label>
           <input
             type="text"
-            v-model="title"
-            id="title"
+            v-model="customerName"
+            id="customerName"
             class="form-control"
             placeholder="Enter the title"
             required
@@ -45,42 +45,33 @@
   import { ref } from 'vue'
   import { defineProps } from 'vue'
   
-  // Receive the slug prop from the parent component
-  const props = defineProps({
-    prodSlug: {
-      type: String,
-      required: true
-    }
-  })
-  
-  const title = ref('')
+  const customerName = ref('')
   const comment = ref('')
   const message = ref('')
-  
+  const {productSlug}= defineProps(['productSlug'])
+
   async function submitComment() {
     try {
-      const response = await fetch('/api/addComment', {
+      const response = await fetch('https://comments.temacs92.workers.dev/api/addComment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title: title.value,
+          customerName: customerName.value,
           comment: comment.value,
-          slug: props.prodSlug
+          productSlug: productSlug
         })
       });
   
       const result = await response.json();
-      message.value = result.message;
-  
-      if (response.ok) {
-        title.value = '';
-        comment.value = '';
-      }
+      message.value = result.data;
+    
     } catch (error) {
       console.error("Error submitting comment:", error);
       message.value = 'There was an error submitting your comment.';
     }
   }
+
+  
   </script>
   
   <style scoped>

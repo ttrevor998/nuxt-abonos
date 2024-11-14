@@ -132,7 +132,7 @@ async function handlePreviousPage() {
 }
 
 onUpdated(async () => {
-    window.scrollTo(0, 0)
+    /*window.scrollTo(0, 0)*/
     currentPage.value = useRoute().query.page
     productsFetched.value=products.value.length===productLimit.value
 })
@@ -143,7 +143,7 @@ onBeforeMount(async()=>{
 
 
 onMounted(async () => {
-    window.scrollTo(0, 0)
+    /*window.scrollTo(0, 0)*/
     products.value = await queryContent('products').limit(productLimit.value).find()
     featuredProducts.value = await queryContent('products').where({ featured: true }).find()
     mainFilter.value = 'Todo'
