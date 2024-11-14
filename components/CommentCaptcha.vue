@@ -1,82 +1,81 @@
 <template>
-  <div>
-    <NuxtLink id="home-link" to="/home">
-      to /home
-    </NuxtLink>
-    <div>
-      <label for="language">Select Turnstile Language : </label>
-      <select id="language" v-model="selectedLanguage">
-        <option v-for="lang in languages" :key="lang" :value="lang">
-          {{ lang }}
-        </option>
-      </select>
-    </div>
-    <button @click="toggle = !toggle">
-      Load Turnstiles
-    </button>
-    <form @submit.prevent="onSubmit">
-      <h2>Using vue model</h2>
-      <NuxtTurnstile v-if="toggle" :key="selectedLanguage" v-model="token"
-        :options="{ action: 'vue', language: selectedLanguage }" />
-      <input type="submit">
+    <form @submit.prevent="submitComment" class="container my-4">
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="customerName" class="form-label">Nombre</label>
+                <input type="text" v-model="customerName" id="customerName" class="form-control"
+                    placeholder="Enter the title" required />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea v-model="comment" id="comment" class="form-control" placeholder="Enter your comment" required
+                    rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 d-flex">
+                <NuxtTurnstile :key="selectedLanguage" v-model="token" :options="{ action: 'vue', language: selectedLanguage }" />
+                <!--<input type="submit">-->
+                <button type="submit" class="btn btn-primary w-100">Submit Comment</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-2">
+                <p v-if="message" class="mt-2">{{ message }}</p>
+            </div>
+        </div>
     </form>
-    <pre>{{ response1 }}</pre>
-    <hr>
-    <form @submit.prevent="onNativeSubmit">
-      <h2>Using native form</h2>
-      <NuxtTurnstile v-if="toggle" :key="selectedLanguage" ref="turnstile"
-        :options="{ action: 'native', language: selectedLanguage }" />
-      <input type="submit">
-    </form>
-    <button :disabled="!turnstile" @click="turnstile.reset()">
-      Reset
-    </button>
-    <pre>{{ response2 }}</pre>
-  </div>
-</template>
-
-<script setup lang="ts">
-const selectedLanguage = ref('en')
-const languages = ['en', 'de', 'fr']
-
-const toggle = ref(false)
-const token = ref()
-
-const turnstile = ref()
-
-const response1 = ref('')
-async function onSubmit() {
-  response1.value = await $fetch('/api/submit', {
-    method: 'POST',
-    body: {
-      token: token.value,
-    },
-  })
-}
-
-const response2 = ref('')
-async function onNativeSubmit(e: Event) {
-  response2.value = await $fetch('/api/submit', {
-    method: 'POST',
-    // This will automatically send token as `cf-turnstile-response`
-    body: Object.fromEntries(new FormData(e.target as HTMLFormElement).entries()),
-  })
-}
-</script>
-
-<!--
-<template>
-  <NuxtTurnstile ref="turnstile" />
-  <button @click="turnstile.reset()">Reset token in template</button>
-  <button @click="reset()">Reset token from handler</button>
 </template>
 
 <script setup>
-// you can call this template ref anything
-const turnstile = ref()
+import { ref } from 'vue'
+import { defineProps } from 'vue'
 
-function reset() {
-  turnstile.value?.reset()
+const customerName = ref('')
+const comment = ref('')
+const message = ref('')
+const selectedLanguage = ref('es')
+const token = ref()
+
+const { productSlug } = defineProps(['productSlug'])
+
+async function submitComment() {
+    try {
+        let validate = await $fetch('/api/submit', {
+            method: 'POST',
+            body: {
+                token: token.value,
+            },
+        })
+
+        console.log('validate', validate)
+
+        const response = await fetch('https://comments.temacs92.workers.dev/api/addComment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                customerName: customerName.value,
+                comment: comment.value,
+                productSlug: productSlug
+            })
+        });
+
+        const result = await response.json();
+        message.value = result.data;
+
+    } catch (error) {
+        console.error("Error submitting comment:", error);
+        message.value = 'There was an error submitting your comment.';
+    }
 }
+
+
 </script>
--->
+
+<style scoped>
+/* Optional styling */
+</style>
