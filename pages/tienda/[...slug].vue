@@ -29,7 +29,7 @@
                         </div>
                         <div class="container">
                             <!--<Comment :productSlug="data.productSlug" />-->
-                            <CommentCaptcha />
+                            <CommentCaptcha :productSlug="data.productSlug" />
                         </div>
                         
                     </div>
