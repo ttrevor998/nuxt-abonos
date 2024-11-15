@@ -17,7 +17,8 @@
         </div>
         <div class="row mb-3">
             <div class="col-12">
-                <NuxtTurnstile :key="selectedLanguage" v-model="token" :options="{ action: 'vue', language: selectedLanguage }" /> 
+                <NuxtTurnstile :key="selectedLanguage" v-model="token"
+                    :options="{ action: 'vue', language: selectedLanguage }" />
             </div>
         </div>
 
@@ -49,7 +50,7 @@ const { productSlug } = defineProps(['productSlug'])
 
 async function submitComment() {
     try {
-        
+
         let validate = await $fetch('/api/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -59,19 +60,25 @@ async function submitComment() {
         })
 
         console.log('validate', validate)
+        
+        if (validate.success) {
+            const response = await fetch('https://comments.temacs92.workers.dev/api/addComment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerName: customerName.value,
+                    comment: comment.value,
+                    productSlug: productSlug
+                })
+            });
 
-        const response = await fetch('https://comments.temacs92.workers.dev/api/addComment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                customerName: customerName.value,
-                comment: comment.value,
-                productSlug: productSlug
-            })
-        });
+            const result = await response.json();
+            message.value = result.data;
 
-        const result = await response.json();
-        message.value = result.data;
+        } else {
+            console.error("Error submitting comment:", error);
+            message.value = 'There was an error submitting your comment.';
+        }
 
     } catch (error) {
         console.error("Error submitting comment:", error);
