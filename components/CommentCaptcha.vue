@@ -15,10 +15,14 @@
                     rows="3"></textarea>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <NuxtTurnstile :key="selectedLanguage" v-model="token" :options="{ action: 'vue', language: selectedLanguage }" /> 
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12 d-flex">
-               <!-- <NuxtTurnstile :key="selectedLanguage" v-model="token" :options="{ action: 'vue', language: selectedLanguage }" /> -->
                 <!--<input type="submit">-->
                 <button type="submit" class="btn btn-primary w-100">Submit Comment</button>
             </div>
@@ -45,7 +49,7 @@ const { productSlug } = defineProps(['productSlug'])
 
 async function submitComment() {
     try {
-        /*
+        
         let validate = await $fetch('/api/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -54,7 +58,7 @@ async function submitComment() {
             },
         })
 
-        console.log('validate', validate)*/
+        console.log('validate', validate)
 
         const response = await fetch('https://comments.temacs92.workers.dev/api/addComment', {
             method: 'POST',
